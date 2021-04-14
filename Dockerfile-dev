@@ -1,7 +1,0 @@
-FROM node:latest
-WORDIR /usr/src/app/angular-ui
-COPY package.json ./
-RUN npm install
-COPY . .
-EXPOSE 3080
-CMD npm run start
