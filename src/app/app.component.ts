@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
 import 'ol/ol.css';
 import Map from 'ol/Map';
 import OSM from 'ol/source/OSM';
