@@ -16,7 +16,7 @@ Angular will run on port 4200.
 ```console
 cd angualr-ui/
 npm install
-npm serve
+ng serve
 ```
 ## Node.js
 Node.js using the Express framework will run on port 3080
