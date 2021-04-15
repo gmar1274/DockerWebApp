@@ -1,0 +1,54 @@
+version: '3.8'
+
+services: 
+  #Backend DB
+  mysqldb:
+    image: mysql
+    command: --init-file ./db/application/init.sql
+    container_name: mysqldb
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD= password123
+      - MYSQL_DATABASE= myDB
+    ports:
+      - "3306:3306"
+    networks:
+      - mywebsite
+    volumes: 
+      - db-config:/etc/mysql
+      - db-data:/var/lib/mysql
+      - ./db/backup/files/:/data_backup/data
+  #phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    depends_on:
+      - mysqldb
+    container_name: phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+    ports:
+      - "8080:80"
+    networks:
+      - mywebsite
+      
+  
+  #Frontend
+  angular-ui:
+    build: ./angular-ui
+    ports:
+        - "30801:30801"
+    container_name: "angular-ui"
+    volumes:
+        - ./angular-ui:/usr/src/app/angular-ui
+        - /usr/src/app/angular-ui/node_modules
+    command: > 
+      bash -c "npm install && npm install -g @angular/cli@7.3.9 && ng serve --host 0.0.0.0 --port 3080"
+    networks:
+      - mywebsite
+networks:
+  mywebsite:        
+volumes: 
+  db-config:
+  db-data:

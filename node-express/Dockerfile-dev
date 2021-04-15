@@ -1,0 +1,17 @@
+#Nodejs
+FROM node:latest
+
+#RUN mkdir -p /usr/src/app/node-express
+WORKDIR /usr/src/app/node-express
+
+COPY package*.json ./
+
+RUN npm install
+RUN npm install express --save
+RUN npm install -g nodemon --save-dev
+
+COPY . .
+
+EXPOSE 3080
+
+CMD [ "npm", "run", "dev" ] 

@@ -1,0 +1,13 @@
+#Build image from latest version available from DockerHub
+FROM node:latest as builder
+
+# Create node directory
+WORKDIR /node-express
+
+COPY package*.json ./
+
+RUN npm install
+
+EXPOSE 3080
+
+CMD ["npm", "run", "dev" ]
