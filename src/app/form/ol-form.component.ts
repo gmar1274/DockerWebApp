@@ -34,7 +34,6 @@ export class OlFormComponent {
             let json = JSON.parse(jsonstr);
             console.log(json['data']);
             if (json['data'].length == 0 || json['data'][0].length) {//not sure why I get back arrays of empty arrays..
-                console.log("Error");
                 this.error = true;
             } else {
                 this.error = false;
@@ -58,9 +57,8 @@ export class OlFormComponent {
         })
     }
     postDB(user: User) {
-        console.log("Posting...");
         this.apiService.addUser(user).subscribe(res => {
-            console.log(res);
+            console.log(res);// do something on complete.
         });
     }
     

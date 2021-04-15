@@ -20,7 +20,6 @@ document.getElementById('zoom-out').onclick = function () {
   var view = map.getView();
   var zoom = view.getZoom();
   view.setZoom(zoom - 1);
-  console.log("HII");
 };
 
 document.getElementById('zoom-in').onclick = function () {

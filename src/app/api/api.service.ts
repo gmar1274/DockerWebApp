@@ -20,8 +20,6 @@ export class ApiService {
   addUser(user:User): Observable<any> {
     const headers = { 'Content-Type': 'application/json'}  
     const body=JSON.stringify(user);
-    console.log("JSON in POST");
-    console.log(body);
     return this.http.post<User>(this.baseURL + this.users_api, body,{'headers':headers})
   }
 
