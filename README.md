@@ -4,6 +4,12 @@ Here is my OpenLayers web app developed using the MEAN stack. I attempted to use
 ```console
 docker-compose up
 ```
+## MySQL
+The MySQL server will run on port 3306.
+
+## phpMyAdmin
+I used phpMyAdmin to interface with the MySQL DB server.
+This will run on port 8080
 
 ## Angular
 Angular will run on port 4200.
