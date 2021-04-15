@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { User } from './user';
 import { NgForm } from '@angular/forms'
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { ApiService } from '../api/api.service';
 
 @Component({
     selector: 'app-ol-form',
@@ -10,33 +11,57 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class OlFormComponent {
-    
-    @ViewChild('olForm', { static: true }) ngForm: NgForm;
 
-    user = new User('', '', '', '', '', '', '', 0, 0);
+    @ViewChild('olForm', { static: true }) ngForm: NgForm;
+    constructor(private apiService: ApiService) { }
+
+    user = new User();
     submitted = false;
     error = false;
+    success = false;
+
     onSubmit(data) {
+        if (this.ngForm.invalid) {
+            return;
+        }
         this.submitted = true;
-        //console.log("Submit pressed!! ");
-        //console.log(data);
-        this.http.get("http://api.positionstack.com/v1/forward?access_key=d978d8c37e21cc1e2b44197ab283e307&query=" + data.address).subscribe(resp => {
+        this.user.name = data.name;
+        this.user.address = data.address;
+        this.user.description = data.description;
+
+        this.apiService.getGeoLocation(this.user).subscribe(resp => {
             let jsonstr = JSON.stringify(resp);
             let json = JSON.parse(jsonstr);
             console.log(json['data']);
-            if(json['data'].length==0){
+            if (json['data'].length == 0) {
                 console.log("Error");
-                this.error=true;
-            }else{
-                this.error=false;
+                this.error = true;
+            } else {
+                this.error = false;
+                this.success = true;
+                let geoloc = json['data'][0];//api will return more than one result but best fit is the first one
+                //add to db
+                this.user.address=geoloc['street'];
+                this.user.zip = geoloc['postal_code'];
+                this.user.country = geoloc['country_code'];
+                this.user.state = geoloc['region'];
+                this.user.lat = geoloc['latitude'];
+                this.user.lon = geoloc['longitude'];
+                this.postDB(this.user);
             }
             this.ngForm.resetForm();
         });
     }
     ngOnInit() {
         this.ngForm.form.valueChanges.subscribe(x => {
-            console.log(x);
+            //console.log(x);//this can be used to autocomplete address via api...
         })
     }
-    constructor(private http: HttpClient) { }
+    postDB(user: User) {
+        console.log("Posting...");
+        this.apiService.addUser(user).subscribe(res => {
+            console.log(res);
+        });
+    }
 }
+

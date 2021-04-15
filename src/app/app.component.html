@@ -314,15 +314,30 @@
 
 <div class="container-fluid content" role="main">
   <!-- Resources -->
-    <div class="w-75 row">
-      <div class="col-sm">
-        <h2 class="text-center">OpenLayers Form</h2>
-        <app-ol-form></app-ol-form>
+  <div class="w-75 row">
+    <div class="col-sm">
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+        <div class="px-3"></div>
+        <li><a data-toggle="tab" href="#db">View Database</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div id="home" class="tab-pane active">
+          <h2 class="text-center">OpenLayers Form</h2>
+          <app-ol-form></app-ol-form>
+        </div>
+        <div id="db" class="tab-pane">
+          <h3>View Database</h3>
+          <p>Some content in menu 1.</p>
+        </div>
       </div>
-      <div class="col-sm">
-        <div id="map" tabindex="0" style="height: 400px;"></div>
-      </div>
+
     </div>
+    <div class="col-sm">
+      <div id="map" tabindex="0" style="height: 400px;"></div>
+    </div>
+  </div>
 </div>
 
 <!-- Footer -->

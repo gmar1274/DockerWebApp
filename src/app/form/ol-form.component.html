@@ -1,4 +1,7 @@
 <form (ngSubmit)="onSubmit(user)" #olForm="ngForm">
+    <ng-template [ngIf]="success">
+        <div class="alert alert-success">Success!</div>
+    </ng-template>
     <div class="form-group">
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name" required [(ngModel)]="user.name" name="name"
