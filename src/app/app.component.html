@@ -328,8 +328,19 @@
           <app-ol-form></app-ol-form>
         </div>
         <div id="db" class="tab-pane">
-          <h3>View Database</h3>
-          <p>Some content in menu 1.</p>
+          <h3 class="text-center">Database</h3>
+          
+          <table class="table table-striped">
+            <th *ngFor = "let column of headers">
+              {{column}}
+            </th>
+            <tr *ngFor = "let row of userArr">
+              <td *ngFor = "let column of headers">
+                {{row[column]}}
+              </td>
+            </tr>
+         </table>
+
         </div>
       </div>
 

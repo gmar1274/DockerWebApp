@@ -41,7 +41,7 @@ export class OlFormComponent {
                 this.success = true;
                 let geoloc = json['data'][0];//api will return more than one result but best fit is the first one
                 //add to db
-                this.user.address=geoloc['street'];
+                this.user.address = geoloc['street'];
                 this.user.zip = geoloc['postal_code'];
                 this.user.country = geoloc['country_code'];
                 this.user.state = geoloc['region'];
@@ -63,5 +63,6 @@ export class OlFormComponent {
             console.log(res);
         });
     }
+    
 }
 
