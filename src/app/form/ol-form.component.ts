@@ -33,7 +33,7 @@ export class OlFormComponent {
             let jsonstr = JSON.stringify(resp);
             let json = JSON.parse(jsonstr);
             console.log(json['data']);
-            if (json['data'].length == 0) {
+            if (json['data'].length == 0 || json['data'][0].length) {//not sure why I get back arrays of empty arrays..
                 console.log("Error");
                 this.error = true;
             } else {
