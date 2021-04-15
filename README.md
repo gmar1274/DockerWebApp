@@ -9,11 +9,13 @@ docker-compose up
 Angular will run on port 4200.
 ```console
 cd angualr-ui/
+npm install
 npm serve
 ```
 ## Node.js
 Node.js using the Express framework will run on port 3080
 ```console
 cd node-express/
+npm install
 nodemon server.js
 ```
